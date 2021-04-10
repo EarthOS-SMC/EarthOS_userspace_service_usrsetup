@@ -51,4 +51,4 @@ sv=$?
 if (( $sv != 0 )); then
 	exit $sv
 fi
-mv ./output/${name}.smc ../image
+mv ./output/${name}* ../$name
