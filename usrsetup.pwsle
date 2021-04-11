@@ -56,6 +56,6 @@ if/[user == ""]
 	print/\c255000000,"N: ",\c255255255,"main user not found, starting configuration",\n
 	print/"debug: executing /lib/system/initcfg",\n
 	getfile/"/lib/system/initcfg"/"file"
-	listtobin/file/"bin"
+	listtobin/"file"/"bin"
 	run/bin,"wait","root"
 endif
