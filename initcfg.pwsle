@@ -34,7 +34,7 @@ while/[continue == 0]
 		getlength/name/"len"
 		// Min length: 3
 		// Max length: 10
-		if/[len < 1]
+		if/[len < 3]
 			print/"Username too short!",\n,"It must be at least 3 characters long.",\n
 		else
 			if/[len > 10]
