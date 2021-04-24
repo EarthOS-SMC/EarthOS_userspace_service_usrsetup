@@ -17,9 +17,6 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
-// Ask for a username and save it in var "name"
-// Don't forget a welcome message as it appears the first
-// time the user runs EarthOS :)
 print/"Welcome to EarthOS! This is a utility for setting up EarthOS for you.",\n
 set/"continue",0
 while/[continue == 0]
