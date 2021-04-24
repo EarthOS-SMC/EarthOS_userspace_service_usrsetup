@@ -23,7 +23,6 @@ if/[%whoami != "root"]
 	exit
 endif
 // Read /lib/system/users/
-print/"debug: reading /lib/system/users/",\n
 ls/"/lib/system/users"/"USERS"
 // Check if root exists
 getindex/"USERS","root"/"ix"
@@ -41,20 +40,17 @@ repeat/len
 	// root is already registered
 	if/[user != "root"]
 		// Register user
-		print/"debug: adding user ",user,\n
 		adduser/user
 	endif
 endloop
 // Check if main user exists
 // (the user who owns the computer of course)
-print/"debug: reading /lib/system/main-user",\n
 getfile/"/lib/system/main-user"/"main"
 getitem/"main",1/"user"
 if/[user == ""]
 	// This system is newly installed!
 	// We should configure it first...
 	print/\c255000000,"N: ",\c255255255,"main user not found, starting configuration",\n
-	print/"debug: executing /lib/system/initcfg",\n
 	getfile/"/lib/system/initcfg"/"file"
 	listtobin/"file"/"bin"
 	run/bin,"wait","root"
