@@ -22,7 +22,7 @@
 // time the user runs EarthOS :)
 print/"Welcome to EarthOS! This is a utility for setting up EarthOS for you.",\n
 set/"continue",0
-while[continue == 0]
+while/[continue == 0]
 	print/"Type your new EarthOS username: "
 	read/"","name"
 	print/name,\n
