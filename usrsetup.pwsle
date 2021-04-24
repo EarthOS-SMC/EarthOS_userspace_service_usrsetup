@@ -30,7 +30,7 @@ getindex/"USERS","root"/"ix"
 if/[ix == 0]
 	// Create missing root user
 	print/\c255000000,"N: ",\c255255255,"'root' user not found, creating",\n
-	//mkdir/"/lib/system/users/root"/"rw-rw----","root","root"
+	mkdir/"/lib/system/users/root"/"rw-rw----","root","root"
 endif
 // Register users
 getlistlength/"USERS"/"len"
@@ -59,3 +59,5 @@ if/[user == ""]
 	listtobin/"file"/"bin"
 	run/bin,"wait","root"
 endif
+// Save changes
+sync

@@ -26,6 +26,5 @@ set/"path","/lib/system/users/",name
 mkdir/path/"rw-rw----",name,name
 setlist/"file"/name
 write/"/lib/system/main-user"/"file","rw-rw----","root","root"
-sync
 // Register the user
 adduser/name
