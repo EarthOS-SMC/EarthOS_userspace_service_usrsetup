@@ -17,6 +17,11 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
+// User must be root
+if/[%whoami != "root"]
+	print/"Only root can do that!",\n
+	exit
+endif
 clear
 print/"Welcome to EarthOS! This is a utility for setting up EarthOS for you.",\n
 set/"continue",0
