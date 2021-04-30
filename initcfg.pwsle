@@ -17,11 +17,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
+include/"moo.pwsl"
 // User must be root
 if/[%whoami != "root"]
 	print/"Only root can do that!",\n
 	exit
 endif
+// Get list of users
+getusers/"USERS"
 clear
 print/"Welcome to EarthOS! This is a utility for setting up EarthOS for you.",\n
 set/"continue",0
@@ -43,13 +46,22 @@ while/[continue == 0]
 			if/[len > 10]
 				print/"Username too long!",\n,"Maximum allowed length is 10 characters.",\n
 			else
-				set/"continue",1
+				getindex/"USERS",name/"ix"
+				if/[ix == 0]
+					set/"continue",1
+				else
+					print/"This username is reserved or not allowed.",\n
+				endif
 			endif
 		endif
 	endif
 endloop
 print/"Creating user..",\n
 // Create the user
+if/[name == "moo"]
+	// Ignore this part, just some *moo things*
+	moo/"... Never gonna moo you down ..."
+endif
 set/"path","/lib/system/users/",name
 mkdir/path/"rw-rw----",name,name
 setlist/"file"/name
