@@ -55,6 +55,11 @@ while/[continue == 0]
 			endif
 		endif
 	endif
+	if/[continue == 0]
+		print/\n,"Press any key to continue...",\n
+		keywait/"any"
+		clear
+	endif
 endloop
 print/"Creating user..",\n
 // Create the user
