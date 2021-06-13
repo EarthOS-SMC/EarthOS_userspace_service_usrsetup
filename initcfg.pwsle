@@ -30,9 +30,7 @@ clear
 print/"Welcome to EarthOS! This is a utility for setting up EarthOS for you.",\n
 set/"continue",0
 while/[continue == 0]
-	print/"Type your new EarthOS username: "
-	read/"","name"
-	print/name,\n
+	read/"Type your new EarthOS username: ","name"
 	getletterindex/name," "/"spaceIn"
 	getletterindex/name,"/"/"slashIn"
 	if/![spaceIn == 0] or ![slashIn == 0]
