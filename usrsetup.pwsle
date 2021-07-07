@@ -24,12 +24,26 @@ if/[%whoami != "root"]
 endif
 // Read /lib/system/users/
 ls/"/lib/system/users"/"USERS"
+set/"ret",%returnc
+if/[ret != ""]
+	geterror/ret,0/"ret"
+	print/"/lib/system/users: ",ret,\n,"Rebooting in 5 seconds...",\n
+	wait/5
+	reboot
+endif
 // Check if root exists
 getindex/"USERS","root"/"ix"
 if/[ix == 0]
 	// Create missing root user
 	print/\c255000000,"N: ",\c255255255,"'root' user not found, creating",\n
 	mkdir/"/lib/system/users/root"/"rw-rw----","root","root"
+	set/"ret",%returnc
+	if/[ret != ""]
+		geterror/ret,0/"ret"
+		print/"Error: ",ret,\n,"Rebooting in 5 seconds...",\n
+		wait/5
+		reboot
+	endif
 endif
 // Register users
 getlistlength/"USERS"/"len"
@@ -46,14 +60,29 @@ endloop
 // Check if main user exists
 // (the user who owns the computer of course)
 getfile/"/lib/system/main-user"/"main"
-getitem/"main",1/"user"
-if/[user == ""]
-	// This system is newly installed!
-	// We should configure it first...
-	print/\c255000000,"N: ",\c255255255,"main user not found, starting configuration",\n
-	getfile/"/lib/system/initcfg"/"file"
-	listtobin/"file"/"bin"
-	run/bin,"wait","root"
+set/"ret",%returnc
+if/[ret != ""]
+	if/[ret == "ENOENT"]
+		// This system is newly installed!
+		// We should configure it first...
+		print/\c255000000,"N: ",\c255255255,"main user not found, starting configuration",\n
+		ftest/"/lib/system/initcfg","rx","f"/"test"
+		set/"ret",%returnc
+		if/[ret != ""]
+			geterror/ret,0/"ret"
+			print/"/lib/system/initcfg: ",ret,\n,"Rebooting in 5 seconds...",\n
+			wait/5
+			reboot
+		endif
+		getfile/"/lib/system/initcfg"/"file"
+		listtobin/"file"/"bin"
+		run/bin,"wait","root"
+	else
+		geterror/ret,0/"ret"
+		print/"/lib/system/main-user: ",ret,\n,"Rebooting in 5 seconds...",\n
+		wait/5
+		reboot
+	endif
 endif
 // Save changes
 sync
