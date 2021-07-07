@@ -68,8 +68,24 @@ if/[name == "moo"]
 endif
 set/"path","/lib/system/users/",name
 mkdir/path/"rw-rw----",name,name
+set/"ret",%returnc
+if/["ret" != ""]
+	geterror/ret,0/"ret"
+	print/"Failed to create the user!",\n
+	print/path,": ",ret,\n,"Rebooting in 5 seconds...",\n
+	wait/5
+	reboot
+endif
 setlist/"file"/name
 write/"/lib/system/main-user"/"file","rw-rw----","root","root"
+set/"ret",%returnc
+if/["ret" != ""]
+	geterror/ret,0/"ret"
+	print/"Failed to register main user!",\n
+	print/"/lib/system/main-user: ",ret,\n,"Rebooting in 5 seconds...",\n
+	wait/5
+	reboot
+endif
 // Register the user
 adduser/name
 print/"User registered.",\n
